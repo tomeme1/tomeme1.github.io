@@ -130,21 +130,16 @@
         var subject = document.getElementById('book-subject').value;
         var description = document.getElementById('book-description').value;
 
-        // Construct the new book listing HTML
-        var listingHTML = `
-            <div class="book-listing">
-                <h3>${title}</h3>
-                <p><strong>Author:</strong> ${author}</p>
-                <p><strong>Price:</strong> $${price}</p>
-                <p><strong>Condition:</strong> ${condition}</p>
-                <p><strong>Subject:</strong> ${subject}</p>
-                <p><strong>Description:</strong> ${description}</p>
-            </div>
-        `;
-
-        // Store the new listing in local storage
+        // Store the new book listing in localStorage
         var listings = JSON.parse(localStorage.getItem('listings')) || [];
-        listings.push(listingHTML);
+        listings.push({
+            title: title,
+            author: author,
+            price: price,
+            condition: condition,
+            subject: subject,
+            description: description
+        });
         localStorage.setItem('listings', JSON.stringify(listings));
 
         // Redirect to the listings page
