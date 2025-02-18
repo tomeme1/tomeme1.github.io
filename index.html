@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spartan Shelf - Home</title>
     <style>
-        /* Basic Reset */
-        * {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
         }
         header {
             background-color: #2c3e50;
@@ -38,13 +33,19 @@
             background-color: #1abc9c;
         }
         .container {
-            margin: 40px auto;
             max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
         .book-image {
             width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
+            max-width: 600px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -52,7 +53,7 @@
 
 <header>
     <h1>Welcome to Spartan Shelf</h1>
-    <p>The best place to buy and sell used books at St. Paul Academy!</p>
+    <p>The best place for students to buy and sell books affordably.</p>
 </header>
 
 <nav>
@@ -60,12 +61,12 @@
     <a href="listings.html">Listings</a>
     <a href="sell.html">Sell</a>
     <a href="cart.html">Cart</a>
-    <a href="#">Contact</a>
 </nav>
 
 <div class="container">
-    <img class="book-image" src="https://th.bing.com/th/id/OIP.534jtvWMxK8XloAnevf8wgHaE8?w=267&h=180&c=7&r=0&o=5&pid=1.7">
-    <p>Find great deals on textbooks and novels from fellow students. Click on "Listings" to browse books or "Sell" to list your own!</p>
+    <h2>Find the books you need at great prices!</h2>
+    <img src="book-placeholder.jpg" alt="Book Image" class="book-image">
+    <p>Browse our listings or sell your old books to help fellow students.</p>
 </div>
 
 </body>
