@@ -22,13 +22,6 @@
             text-align: center;
             padding: 20px 0;
         }
-        header h1 {
-            font-size: 3rem;
-        }
-        header p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
         nav {
             background-color: #34495e;
             padding: 1em 0;
@@ -74,7 +67,7 @@
         /* Book Listing Styles */
         .book-listing {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 listings per row */
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 20px;
             max-width: 1200px;
@@ -118,17 +111,8 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5rem;
-            }
-            header p {
-                font-size: 1rem;
-            }
-            nav a {
-                font-size: 1rem;
-            }
             .book-listing {
-                grid-template-columns: 1fr 1fr; /* 2 listings per row on mobile */
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -147,99 +131,9 @@
 </nav>
 
 <div class="filter-container">
-    <select id="topicFilter">
-        <option value="all">All Topics</option>
-        <option value="english">English 9, 10, 11th Grade Elective, 12th Grade Elective</option>
-        <option value="history">World History 1, 2, United States History, 12th Grade Elective</option>
-    </select>
-    <button onclick="filterBooks()">Filter</button>
-</div>
-
-<section class="book-listing" id="book-listing">
-
-    <!-- Example Book Card 1 -->
-    <div class="book-card" data-topic="english">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>English 9 - The Great Gatsby</h3>
-            <p>Author: F. Scott Fitzgerald</p>
-            <p>Condition: Used - Good</p>
-            <div class="price">$10</div>
-        </div>
-    </div>
-
-    <!-- Example Book Card 2 -->
-    <div class="book-card" data-topic="history">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>World History 1 - Ancient Civilizations</h3>
-            <p>Author: Various</p>
-            <p>Condition: Used - Like New</p>
-            <div class="price">$12</div>
-        </div>
-    </div>
-
-    <!-- Example Book Card 3 -->
-    <div class="book-card" data-topic="english">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>English 10 - To Kill a Mockingbird</h3>
-            <p>Author: Harper Lee</p>
-            <p>Condition: Used - Acceptable</p>
-            <div class="price">$8</div>
-        </div>
-    </div>
-
-    <!-- Example Book Card 4 -->
-    <div class="book-card" data-topic="history">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>United States History - Civil War</h3>
-            <p>Author: Various</p>
-            <p>Condition: Used - Good</p>
-            <div class="price">$15</div>
-        </div>
-    </div>
-
-    <!-- Example Book Card 5 -->
-    <div class="book-card" data-topic="english">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>English 11 - 1984</h3>
-            <p>Author: George Orwell</p>
-            <p>Condition: Used - Like New</p>
-            <div class="price">$11</div>
-        </div>
-    </div>
-
-    <!-- Example Book Card 6 -->
-    <div class="book-card" data-topic="history">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>History Elective - The Cold War</h3>
-            <p>Author: Various</p>
-            <p>Condition: Used - Good</p>
-            <div class="price">$9</div>
-        </div>
-    </div>
-
-    <!-- Add more books here -->
-</section>
-
-<script>
-    function filterBooks() {
-        const topic = document.getElementById('topicFilter').value;
-        const books = document.querySelectorAll('.book-card');
-
-        books.forEach(book => {
-            if (topic === 'all' || book.dataset.topic === topic) {
-                book.style.display = 'block';
-            } else {
-                book.style.display = 'none';
-            }
-        });
-    }
-</script>
-
-</body>
-</html>
+    <select id="subjectFilter">
+        <option value="all">All Subjects</option>
+        <option value="english9">English 9</option>
+        <option value="english10">English 10</option>
+        <option value="english11">English 11</option>
+  
