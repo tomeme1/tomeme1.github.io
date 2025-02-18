@@ -90,11 +90,44 @@
 
 <div class="container">
     <h2>Available Listings</h2>
-    <label for="subjectFilter">Filter by Subject:</label>
+    <label for="subjectFilter">Filter by Class:</label>
     <select id="subjectFilter" onchange="filterListings()">
-        <option value="all">All Subjects</option>
-        <option value="English">English</option>
-        <option value="History">History</option>
+        <option value="all">All Classes</option>
+        <!-- English classes -->
+        <option value="English 9">English 9</option>
+        <option value="English 10">English 10</option>
+        <option value="Literature of Pandemics">Literature of Pandemics</option>
+        <option value="Writing Seminar: Rhetoric and Grammar">Writing Seminar: Rhetoric and Grammar</option>
+        <option value="Contemporary Culture">Contemporary Culture</option>
+        <option value="Literature of Black Joy">Literature of Black Joy</option>
+        <option value="War in Literature">War in Literature</option>
+        <option value="Big Books: Studies in the Novel">Big Books: Studies in the Novel</option>
+        <option value="Creative Writing: Story Mechanics">Creative Writing: Story Mechanics</option>
+        <option value="Literature of Comedy and Satire">Literature of Comedy and Satire</option>
+        <option value="Literature of Resistance">Literature of Resistance</option>
+        <option value="Transnational Literature">Transnational Literature</option>
+        <option value="Creative Writing: Creative Nonfiction">Creative Writing: Creative Nonfiction</option>
+        <option value="Shakespeare and the Modern World">Shakespeare and the Modern World</option>
+        <option value="Writing Sem: Contemporary Culture">Writing Sem: Contemporary Culture</option>
+
+        <!-- History classes -->
+        <option value="World History 1">World History 1</option>
+        <option value="World History 2">World History 2</option>
+        <option value="US History">US History</option>
+        <option value="Adv Historical Research: Directed">Adv Historical Research: Directed</option>
+        <option value="Adv US History Seminar">Adv US History Seminar</option>
+        <option value="Government and Citizenship">Government and Citizenship</option>
+        <option value="History of Race">History of Race</option>
+        <option value="History of Refugee Communities">History of Refugee Communities</option>
+        <option value="History of Thought">History of Thought</option>
+        <option value="Native American Studies">Native American Studies</option>
+        <option value="Adv Historical Research: Applied">Adv Historical Research: Applied</option>
+        <option value="Gender in the Americas">Gender in the Americas</option>
+        <option value="History of Law">History of Law</option>
+        <option value="History of Medicine">History of Medicine</option>
+        <option value="Israel and Palestine">Israel and Palestine</option>
+        <option value="South Asian American Studies">South Asian American Studies</option>
+        <option value="World Religions">World Religions</option>
     </select>
     <div id="book-listings"></div>
 </div>
@@ -103,22 +136,6 @@
     var listings = JSON.parse(localStorage.getItem('listings')) || [];
     var cart = JSON.parse(localStorage.getItem('cart')) || [];
     var listingsContainer = document.getElementById('book-listings');
-    
-    // Define the subjects for filtering
-    var englishSubjects = [
-        "English 9", "English 10", "Literature of Pandemics", "Writing Seminar: Rhetoric and Grammar", 
-        "Contemporary Culture", "Literature of Black Joy", "War in Literature", "Big Books: Studies in the Novel", 
-        "Creative Writing: Story Mechanics", "Literature of Comedy and Satire", "Literature of Resistance", 
-        "Transnational Literature", "Creative Writing: Creative Nonfiction", "Literature of Pandemics", 
-        "Shakespeare and the Modern World", "War in Literature", "Writing Sem: Contemporary Culture"
-    ];
-    
-    var historySubjects = [
-        "World History 1", "World History 2", "US History", "Adv Historical Research: Directed", 
-        "Adv US History Seminar", "Government and Citizenship", "History of Race", "History of Refugee Communities", 
-        "History of Thought", "Native American Studies", "Adv Historical Research: Applied", "Gender in the Americas", 
-        "History of Law", "History of Medicine", "Israel and Palestine", "South Asian American Studies", "World Religions"
-    ];
     
     // Display all listings or filtered listings
     function displayListings(filtered = listings) {
@@ -143,17 +160,15 @@
         });
     }
     
-    // Filter listings based on selected subject
+    // Filter listings based on selected class
     function filterListings() {
-        var selectedSubject = document.getElementById('subjectFilter').value;
+        var selectedClass = document.getElementById('subjectFilter').value;
         var filteredListings = [];
 
-        if (selectedSubject === "all") {
+        if (selectedClass === "all") {
             filteredListings = listings;
-        } else if (selectedSubject === "English") {
-            filteredListings = listings.filter(listing => englishSubjects.includes(listing.subject));
-        } else if (selectedSubject === "History") {
-            filteredListings = listings.filter(listing => historySubjects.includes(listing.subject));
+        } else {
+            filteredListings = listings.filter(listing => listing.subject === selectedClass);
         }
 
         displayListings(filteredListings);
