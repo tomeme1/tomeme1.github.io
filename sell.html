@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell a Book - Spartan Shelf</title>
+    <title>Sell Your Book - Spartan Shelf</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             text-align: center;
         }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
+        header {
             padding: 20px;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            background-color: #1abc9c;
+            color: white;
         }
-        input, select {
+        h1 {
+            margin: 0;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input, .form-container select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-        button {
-            width: 100%;
-            padding: 10px;
+        .form-container button {
             background-color: #1abc9c;
             color: white;
-            border: none;
-            cursor: pointer;
+            padding: 10px;
             font-size: 1rem;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
-        button:hover {
+        .form-container button:hover {
             background-color: #16a085;
         }
     </style>
@@ -42,56 +51,54 @@
 <body>
 
 <header>
-    <h1>Sell a Book</h1>
-    <p>List your book for sale</p>
+    <h1>Welcome to Spartan Shelf</h1>
+    <p>Sell Your Used Books</p>
 </header>
 
-<div class="container">
-    <label for="title">Book Title:</label>
-    <input type="text" id="title" placeholder="Enter book title">
-
-    <label for="author">Author:</label>
-    <input type="text" id="author" placeholder="Enter author's name">
-
-    <label for="price">Price ($):</label>
-    <input type="number" id="price" placeholder="Enter price">
-
-    <label for="subject">Select Subject:</label>
-    <select id="subject">
-        <option value="English 9">English 9</option>
-        <option value="English 10">English 10</option>
-        <option value="English 11th Grade Elective">English 11th Grade Elective</option>
-        <option value="English 12th Grade Elective">English 12th Grade Elective</option>
-        <option value="World History 1">World History 1</option>
-        <option value="World History 2">World History 2</option>
-        <option value="United States History">United States History</option>
-        <option value="History 12th Grade Elective">History 12th Grade Elective</option>
-    </select>
-
-    <button onclick="addListing()">Submit Listing</button>
+<div class="form-container">
+    <h2>List Your Book for Sale</h2>
+    <form id="sell-form">
+        <input type="text" id="title" placeholder="Book Title" required>
+        <input type="text" id="author" placeholder="Author" required>
+        <input type="number" id="price" placeholder="Price" required>
+        <select id="subject">
+            <option value="English 9">English 9</option>
+            <option value="English 10">English 10</option>
+            <option value="English 11th Grade Elective">English 11th Grade Elective</option>
+            <option value="English 12th Grade Elective">English 12th Grade Elective</option>
+            <option value="World History 1">World History 1</option>
+            <option value="World History 2">World History 2</option>
+            <option value="United States History">United States History</option>
+            <option value="History 12th Grade Elective">History 12th Grade Elective</option>
+        </select>
+        <button type="submit">List Book</button>
+    </form>
 </div>
 
 <script>
-    function addListing() {
-        let title = document.getElementById("title").value;
-        let author = document.getElementById("author").value;
-        let price = document.getElementById("price").value;
-        let subject = document.getElementById("subject").value;
+    document.getElementById("sell-form").addEventListener("submit", function(event) {
+        event.preventDefault();
 
-        if (!title || !author || !price) {
-            alert("Please fill in all fields.");
-            return;
-        }
+        const title = document.getElementById("title").value;
+        const author = document.getElementById("author").value;
+        const price = document.getElementById("price").value;
+        const subject = document.getElementById("subject").value;
 
-        let newBook = { title, author, price, subject };
+        const newBook = {
+            title,
+            author,
+            price,
+            subject
+        };
 
-        let books = JSON.parse(localStorage.getItem("books")) || [];
-        books.push(newBook);
-        localStorage.setItem("books", JSON.stringify(books));
+        let userBooks = JSON.parse(localStorage.getItem("books")) || [];
+        userBooks.push(newBook);
 
-        alert("Book listed successfully!");
-        window.location.href = "listings.html"; // Redirect back to listings page
-    }
+        localStorage.setItem("books", JSON.stringify(userBooks));
+
+        alert("Your book has been listed!");
+        document.getElementById("sell-form").reset();
+    });
 </script>
 
 </body>
