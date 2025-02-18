@@ -151,48 +151,33 @@
 </div>
 
 <section class="book-listing" id="book-listing">
-    <div class="book-card" data-subject="english9">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>English 9 - The Great Gatsby</h3>
-            <p>Author: F. Scott Fitzgerald</p>
-            <p>Condition: Used - Good</p>
-            <div class="price">$10</div>
-        </div>
-    </div>
-
-    <div class="book-card" data-subject="worldhistory1">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>World History 1 - Ancient Civilizations</h3>
-            <p>Author: Various</p>
-            <p>Condition: Used - Like New</p>
-            <div class="price">$12</div>
-        </div>
-    </div>
-
-    <div class="book-card" data-subject="ushistory">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>United States History - Civil War</h3>
-            <p>Author: Various</p>
-            <p>Condition: Used - Good</p>
-            <div class="price">$15</div>
-        </div>
-    </div>
-
-    <div class="book-card" data-subject="english10">
-        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
-        <div class="book-info">
-            <h3>English 10 - To Kill a Mockingbird</h3>
-            <p>Author: Harper Lee</p>
-            <p>Condition: Used - Acceptable</p>
-            <div class="price">$8</div>
-        </div>
-    </div>
+    <!-- Default Books (for reference) -->
 </section>
 
 <script>
+    function loadBooks() {
+        const bookList = document.getElementById("book-listing");
+        bookList.innerHTML = ""; // Clear existing books
+
+        const books = JSON.parse(localStorage.getItem("books")) || [];
+
+        books.forEach(book => {
+            const bookCard = document.createElement("div");
+            bookCard.classList.add("book-card");
+            bookCard.setAttribute("data-subject", book.subject);
+            bookCard.innerHTML = `
+                <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+                <div class="book-info">
+                    <h3>${book.title}</h3>
+                    <p>Author: ${book.author}</p>
+                    <p>Condition: ${book.condition}</p>
+                    <div class="price">$${book.price}</div>
+                </div>
+            `;
+            bookList.appendChild(bookCard);
+        });
+    }
+
     function filterBooks() {
         const subject = document.getElementById('subjectFilter').value;
         const books = document.querySelectorAll('.book-card');
@@ -205,7 +190,10 @@
             }
         });
     }
+
+    document.addEventListener("DOMContentLoaded", loadBooks);
 </script>
+
 
 </body>
 </html>
