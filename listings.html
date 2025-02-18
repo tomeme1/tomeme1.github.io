@@ -1,20 +1,106 @@
-<script>
-    let hardcodedBooks = [
-        { title: "To Kill a Mockingbird", author: "Harper Lee", price: "10.99", subject: "English 9" },
-        { title: "1984", author: "George Orwell", price: "8.99", subject: "English 10" },
-        { title: "Fahrenheit 451", author: "Ray Bradbury", price: "9.50", subject: "English 11th Grade Elective" },
-        { title: "The Great Gatsby", author: "F. Scott Fitzgerald", price: "7.99", subject: "English 12th Grade Elective" },
-        { title: "A People's History of the United States", author: "Howard Zinn", price: "12.50", subject: "United States History" },
-        { title: "Guns, Germs, and Steel", author: "Jared Diamond", price: "15.00", subject: "World History 1" },
-        { title: "The Silk Roads", author: "Peter Frankopan", price: "14.25", subject: "World History 2" },
-        { title: "Sapiens: A Brief History of Humankind", author: "Yuval Noah Harari", price: "13.75", subject: "History 12th Grade Elective" }
-    ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Listings - Spartan Shelf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            padding: 20px;
+            background-color: #1abc9c;
+            color: white;
+        }
+        h1 {
+            margin: 0;
+        }
+        .filters {
+            margin: 20px 0;
+        }
+        select {
+            padding: 10px;
+            font-size: 1rem;
+        }
+        .book {
+            display: inline-block;
+            margin: 20px;
+            width: 200px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .book img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .book h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        .book p {
+            margin: 5px 0;
+        }
+        .add-to-cart {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 8px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+        .add-to-cart:hover {
+            background-color: #16a085;
+        }
+        #book-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
 
+<header>
+    <h1>Welcome to Spartan Shelf</h1>
+    <p>Buy and Sell Used Books</p>
+</header>
+
+<div class="filters">
+    <label for="filter">Filter by Subject:</label>
+    <select id="filter" onchange="filterBooks()">
+        <option value="all">All Subjects</option>
+        <option value="English 9">English 9</option>
+        <option value="English 10">English 10</option>
+        <option value="English 11th Grade Elective">English 11th Grade Elective</option>
+        <option value="English 12th Grade Elective">English 12th Grade Elective</option>
+        <option value="World History 1">World History 1</option>
+        <option value="World History 2">World History 2</option>
+        <option value="United States History">United States History</option>
+        <option value="History 12th Grade Elective">History 12th Grade Elective</option>
+    </select>
+</div>
+
+<div id="book-list"></div>
+
+<script>
     function loadBooks() {
         let userBooks = JSON.parse(localStorage.getItem("books")) || [];
-        let allBooks = [...hardcodedBooks, ...userBooks];
+        
+        if (userBooks.length === 0) {
+            document.getElementById("book-list").innerHTML = "<p>No books available. Be the first to list one!</p>";
+            return;
+        }
 
-        displayBooks(allBooks);
+        displayBooks(userBooks);
     }
 
     function displayBooks(filteredBooks) {
@@ -39,9 +125,8 @@
     function filterBooks() {
         let filterValue = document.getElementById("filter").value;
         let userBooks = JSON.parse(localStorage.getItem("books")) || [];
-        let allBooks = [...hardcodedBooks, ...userBooks];
 
-        let filteredBooks = filterValue === "all" ? allBooks : allBooks.filter(book => book.subject === filterValue);
+        let filteredBooks = filterValue === "all" ? userBooks : userBooks.filter(book => book.subject === filterValue);
         displayBooks(filteredBooks);
     }
 
@@ -54,3 +139,6 @@
 
     document.addEventListener("DOMContentLoaded", loadBooks);
 </script>
+
+</body>
+</html>
