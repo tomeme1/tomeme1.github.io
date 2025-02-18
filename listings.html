@@ -48,6 +48,26 @@
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            text-align: left;
+        }
+        .book-listing h3 {
+            margin: 0;
+            color: #34495e;
+        }
+        .book-listing p {
+            margin: 8px 0;
+            color: #555;
+        }
+        .book-listing button {
+            background-color: #1abc9c;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .book-listing button:hover {
+            background-color: #16a085;
         }
     </style>
 </head>
@@ -76,6 +96,11 @@
 
     // Display the listings on the page
     var listingsContainer = document.getElementById('book-listings');
+    
+    if (listings.length === 0) {
+        listingsContainer.innerHTML = "<p>No books available yet. Add a book to the listings!</p>";
+    }
+
     listings.forEach(function (listing) {
         listingsContainer.innerHTML += listing;
     });
