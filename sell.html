@@ -42,13 +42,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-        .book-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            margin: 20px 0;
-            border-radius: 10px;
-        }
         .btn-sell {
             background-color: #1abc9c;
             color: white;
@@ -60,24 +53,6 @@
         }
         .btn-sell:hover {
             background-color: #16a085;
-        }
-        form div {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        select {
-            background-color: #f9f9f9;
         }
     </style>
 </head>
@@ -98,22 +73,22 @@
 <div class="container">
     <h2>Sell Your Book</h2>
     <p>Fill out the form below to list your book for sale.</p>
-    <form action="listings.html" method="POST">
+    <form id="sell-form">
         <div>
             <label for="book-title">Book Title:</label>
-            <input type="text" id="book-title" name="book-title" required>
+            <input type="text" id="book-title" required>
         </div>
         <div>
             <label for="book-author">Author:</label>
-            <input type="text" id="book-author" name="book-author" required>
+            <input type="text" id="book-author" required>
         </div>
         <div>
             <label for="book-price">Price:</label>
-            <input type="text" id="book-price" name="book-price" required>
+            <input type="text" id="book-price" required>
         </div>
         <div>
             <label for="book-condition">Condition:</label>
-            <select id="book-condition" name="book-condition" required>
+            <select id="book-condition" required>
                 <option value="New">New</option>
                 <option value="Like New">Like New</option>
                 <option value="Good">Good</option>
@@ -123,7 +98,7 @@
         </div>
         <div>
             <label for="book-subject">Subject:</label>
-            <select id="book-subject" name="book-subject" required>
+            <select id="book-subject" required>
                 <option value="English 9">English 9</option>
                 <option value="English 10">English 10</option>
                 <option value="English 11">English 11</option>
@@ -133,19 +108,49 @@
                 <option value="U.S. History">U.S. History</option>
                 <option value="U.S. History 2">U.S. History 2</option>
                 <option value="History Elective">History Elective</option>
-                <option value="Math">Math</option>
-                <option value="Science">Science</option>
-                <option value="Art">Art</option>
-                <option value="Music">Music</option>
             </select>
         </div>
         <div>
             <label for="book-description">Description:</label>
-            <textarea id="book-description" name="book-description" required></textarea>
+            <textarea id="book-description" required></textarea>
         </div>
         <button class="btn-sell" type="submit">Sell Book</button>
     </form>
 </div>
+
+<script>
+    document.getElementById('sell-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Collect form data
+        var title = document.getElementById('book-title').value;
+        var author = document.getElementById('book-author').value;
+        var price = document.getElementById('book-price').value;
+        var condition = document.getElementById('book-condition').value;
+        var subject = document.getElementById('book-subject').value;
+        var description = document.getElementById('book-description').value;
+
+        // Construct the new book listing HTML
+        var listingHTML = `
+            <div class="book-listing">
+                <h3>${title}</h3>
+                <p><strong>Author:</strong> ${author}</p>
+                <p><strong>Price:</strong> $${price}</p>
+                <p><strong>Condition:</strong> ${condition}</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Description:</strong> ${description}</p>
+            </div>
+        `;
+
+        // Store the new listing in local storage
+        var listings = JSON.parse(localStorage.getItem('listings')) || [];
+        listings.push(listingHTML);
+        localStorage.setItem('listings', JSON.stringify(listings));
+
+        // Redirect to the listings page
+        window.location.href = "listings.html";
+    });
+</script>
 
 </body>
 </html>
