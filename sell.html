@@ -10,26 +10,6 @@
             background-color: #f4f4f4;
             text-align: center;
         }
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-        }
-        nav {
-            background-color: #34495e;
-            padding: 1em 0;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1rem;
-            padding: 8px;
-            border-radius: 5px;
-        }
-        nav a:hover {
-            background-color: #1abc9c;
-        }
         .container {
             max-width: 600px;
             margin: 40px auto;
@@ -38,26 +18,21 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
         input, select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 1rem;
         }
         button {
-            padding: 10px 20px;
-            font-size: 1.1rem;
+            width: 100%;
+            padding: 10px;
             background-color: #1abc9c;
             color: white;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
         }
         button:hover {
             background-color: #16a085;
@@ -68,81 +43,56 @@
 
 <header>
     <h1>Sell a Book</h1>
-    <p>Fill out the form to list your book for sale.</p>
+    <p>List your book for sale</p>
 </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="listings.html">Listings</a>
-    <a href="sell.html">Sell</a>
-    <a href="cart.html">Cart</a>
-</nav>
-
 <div class="container">
-    <form id="sellForm">
-        <label for="title">Book Title:</label>
-        <input type="text" id="title" required>
+    <label for="title">Book Title:</label>
+    <input type="text" id="title" placeholder="Enter book title">
 
-        <label for="author">Author:</label>
-        <input type="text" id="author" required>
+    <label for="author">Author:</label>
+    <input type="text" id="author" placeholder="Enter author's name">
 
-        <label for="subject">Subject:</label>
-        <select id="subject" required>
-            <optgroup label="English">
-                <option value="english9">English 9</option>
-                <option value="english10">English 10</option>
-                <option value="english11">English 11</option>
-                <option value="english12">English 12 Elective</option>
-            </optgroup>
-            <optgroup label="History">
-                <option value="worldhistory1">World History 1</option>
-                <option value="worldhistory2">World History 2</option>
-                <option value="ushistory">United States History</option>
-                <option value="history12">12th Grade History Elective</option>
-            </optgroup>
-        </select>
+    <label for="price">Price ($):</label>
+    <input type="number" id="price" placeholder="Enter price">
 
-        <label for="condition">Condition:</label>
-        <select id="condition" required>
-            <option value="new">New</option>
-            <option value="like new">Like New</option>
-            <option value="good">Good</option>
-            <option value="acceptable">Acceptable</option>
-        </select>
+    <label for="subject">Select Subject:</label>
+    <select id="subject">
+        <option value="English 9">English 9</option>
+        <option value="English 10">English 10</option>
+        <option value="English 11th Grade Elective">English 11th Grade Elective</option>
+        <option value="English 12th Grade Elective">English 12th Grade Elective</option>
+        <option value="World History 1">World History 1</option>
+        <option value="World History 2">World History 2</option>
+        <option value="United States History">United States History</option>
+        <option value="History 12th Grade Elective">History 12th Grade Elective</option>
+    </select>
 
-        <label for="price">Price ($):</label>
-        <input type="number" id="price" min="1" required>
-
-        <button type="submit">List Book</button>
-    </form>
+    <button onclick="addListing()">Submit Listing</button>
 </div>
 
 <script>
-    document.getElementById("sellForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+    function addListing() {
+        let title = document.getElementById("title").value;
+        let author = document.getElementById("author").value;
+        let price = document.getElementById("price").value;
+        let subject = document.getElementById("subject").value;
 
-        // Get form data
-        const title = document.getElementById("title").value;
-        const author = document.getElementById("author").value;
-        const subject = document.getElementById("subject").value;
-        const condition = document.getElementById("condition").value;
-        const price = document.getElementById("price").value;
+        if (!title || !author || !price) {
+            alert("Please fill in all fields.");
+            return;
+        }
 
-        // Create a book object
-        const newBook = { title, author, subject, condition, price };
+        let newBook = { title, author, price, subject };
 
-        // Get existing listings from localStorage
         let books = JSON.parse(localStorage.getItem("books")) || [];
         books.push(newBook);
-
-        // Save updated listings back to localStorage
         localStorage.setItem("books", JSON.stringify(books));
 
-        // Redirect to listings page
-        window.location.href = "listings.html";
-    });
+        alert("Book listed successfully!");
+        window.location.href = "listings.html"; // Redirect back to listings page
+    }
 </script>
 
 </body>
 </html>
-
