@@ -32,11 +32,11 @@
             text-decoration: none;
             margin: 0 15px;
             font-size: 1.1rem;
+            padding: 8px;
+            border-radius: 5px;
         }
         nav a:hover {
             background-color: #1abc9c;
-            padding: 8px;
-            border-radius: 5px;
         }
 
         /* Filter Styles */
@@ -127,13 +127,85 @@
 <nav>
     <a href="index.html">Home</a>
     <a href="listings.html">Listings</a>
-    <a href="#">Contact</a>
+    <a href="sell.html">Sell</a>
+    <a href="cart.html">Cart</a>
 </nav>
 
 <div class="filter-container">
     <select id="subjectFilter">
         <option value="all">All Subjects</option>
-        <option value="english9">English 9</option>
-        <option value="english10">English 10</option>
-        <option value="english11">English 11</option>
-  
+        <optgroup label="English">
+            <option value="english9">English 9</option>
+            <option value="english10">English 10</option>
+            <option value="english11">English 11</option>
+            <option value="english12">English 12 Elective</option>
+        </optgroup>
+        <optgroup label="History">
+            <option value="worldhistory1">World History 1</option>
+            <option value="worldhistory2">World History 2</option>
+            <option value="ushistory">United States History</option>
+            <option value="history12">12th Grade History Elective</option>
+        </optgroup>
+    </select>
+    <button onclick="filterBooks()">Filter</button>
+</div>
+
+<section class="book-listing" id="book-listing">
+    <div class="book-card" data-subject="english9">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>English 9 - The Great Gatsby</h3>
+            <p>Author: F. Scott Fitzgerald</p>
+            <p>Condition: Used - Good</p>
+            <div class="price">$10</div>
+        </div>
+    </div>
+
+    <div class="book-card" data-subject="worldhistory1">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>World History 1 - Ancient Civilizations</h3>
+            <p>Author: Various</p>
+            <p>Condition: Used - Like New</p>
+            <div class="price">$12</div>
+        </div>
+    </div>
+
+    <div class="book-card" data-subject="ushistory">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>United States History - Civil War</h3>
+            <p>Author: Various</p>
+            <p>Condition: Used - Good</p>
+            <div class="price">$15</div>
+        </div>
+    </div>
+
+    <div class="book-card" data-subject="english10">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>English 10 - To Kill a Mockingbird</h3>
+            <p>Author: Harper Lee</p>
+            <p>Condition: Used - Acceptable</p>
+            <div class="price">$8</div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function filterBooks() {
+        const subject = document.getElementById('subjectFilter').value;
+        const books = document.querySelectorAll('.book-card');
+
+        books.forEach(book => {
+            if (subject === 'all' || book.dataset.subject === subject) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
