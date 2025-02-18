@@ -61,6 +61,24 @@
         .btn-sell:hover {
             background-color: #16a085;
         }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        select {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -86,8 +104,40 @@
             <input type="text" id="book-title" name="book-title" required>
         </div>
         <div>
+            <label for="book-author">Author:</label>
+            <input type="text" id="book-author" name="book-author" required>
+        </div>
+        <div>
             <label for="book-price">Price:</label>
             <input type="text" id="book-price" name="book-price" required>
+        </div>
+        <div>
+            <label for="book-condition">Condition:</label>
+            <select id="book-condition" name="book-condition" required>
+                <option value="New">New</option>
+                <option value="Like New">Like New</option>
+                <option value="Good">Good</option>
+                <option value="Acceptable">Acceptable</option>
+                <option value="Poor">Poor</option>
+            </select>
+        </div>
+        <div>
+            <label for="book-subject">Subject:</label>
+            <select id="book-subject" name="book-subject" required>
+                <option value="English 9">English 9</option>
+                <option value="English 10">English 10</option>
+                <option value="English 11">English 11</option>
+                <option value="English 12">English 12</option>
+                <option value="World History 1">World History 1</option>
+                <option value="World History 2">World History 2</option>
+                <option value="U.S. History">U.S. History</option>
+                <option value="U.S. History 2">U.S. History 2</option>
+                <option value="History Elective">History Elective</option>
+                <option value="Math">Math</option>
+                <option value="Science">Science</option>
+                <option value="Art">Art</option>
+                <option value="Music">Music</option>
+            </select>
         </div>
         <div>
             <label for="book-description">Description:</label>
