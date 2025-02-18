@@ -8,46 +8,57 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            text-align: center;
+            margin: 0;
+            padding: 0;
         }
         header {
+            background-color: #2c3e50;
+            color: white;
             padding: 20px;
-            background-color: #1abc9c;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 1em 0;
+        }
+        nav a {
             color: white;
-        }
-        header h1 {
-            margin: 0;
-        }
-        .nav-links {
-            margin: 10px 0;
-        }
-        .nav-links a {
-            margin: 0 10px;
             text-decoration: none;
-            color: white;
-            font-weight: bold;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #1abc9c;
         }
         .filters {
             margin: 20px 0;
-        }
-        select {
             padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .filters select {
             font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
         }
         .book {
             display: inline-block;
-            margin: 20px;
-            width: 200px;
+            width: 30%;
+            margin: 15px;
             background-color: white;
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         .book img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: auto;
+            max-height: 200px;
             border-radius: 8px;
+            object-fit: cover;
         }
         .book h3 {
             font-size: 1.2rem;
@@ -59,12 +70,12 @@
         .add-to-cart {
             background-color: #1abc9c;
             color: white;
-            border: none;
             padding: 8px;
-            width: 100%;
-            cursor: pointer;
             font-size: 1rem;
+            border: none;
+            width: 100%;
             border-radius: 5px;
+            cursor: pointer;
         }
         .add-to-cart:hover {
             background-color: #16a085;
@@ -74,36 +85,50 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Welcome to Spartan Shelf</h1>
-    <p>Buy and Sell Used Books</p>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="sell.html">Sell</a>
-        <a href="cart.html">Cart</a>
-    </div>
+    <p>Find books you need at great prices!</p>
 </header>
 
-<div class="filters">
-    <label for="filter">Filter by Subject:</label>
-    <select id="filter" onchange="filterBooks()">
-        <option value="all">All Subjects</option>
-        <option value="English 9">English 9</option>
-        <option value="English 10">English 10</option>
-        <option value="English 11th Grade Elective">English 11th Grade Elective</option>
-        <option value="English 12th Grade Elective">English 12th Grade Elective</option>
-        <option value="World History 1">World History 1</option>
-        <option value="World History 2">World History 2</option>
-        <option value="United States History">United States History</option>
-        <option value="History 12th Grade Elective">History 12th Grade Elective</option>
-    </select>
-</div>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="listings.html">Listings</a>
+    <a href="sell.html">Sell</a>
+    <a href="cart.html">Cart</a>
+</nav>
 
-<div id="book-list"></div>
+<div class="container">
+    <h2>Browse Books</h2>
+
+    <div class="filters">
+        <label for="filter">Filter by Subject:</label>
+        <select id="filter" onchange="filterBooks()">
+            <option value="all">All Subjects</option>
+            <option value="English 9">English 9</option>
+            <option value="English 10">English 10</option>
+            <option value="English 11th Grade Elective">English 11th Grade Elective</option>
+            <option value="English 12th Grade Elective">English 12th Grade Elective</option>
+            <option value="World History 1">World History 1</option>
+            <option value="World History 2">World History 2</option>
+            <option value="United States History">United States History</option>
+            <option value="History 12th Grade Elective">History 12th Grade Elective</option>
+        </select>
+    </div>
+
+    <div id="book-list"></div>
+</div>
 
 <script>
     function loadBooks() {
