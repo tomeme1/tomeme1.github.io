@@ -42,13 +42,26 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+        .filter-container {
+            margin-bottom: 20px;
+        }
+        .filter-container select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin: 0 10px;
+        }
         .book-listing {
+            display: inline-block;
+            width: 30%;
             margin-bottom: 20px;
             padding: 10px;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: left;
+            vertical-align: top;
         }
         .book-listing h3 {
             margin: 0;
@@ -69,6 +82,9 @@
         .book-listing button:hover {
             background-color: #16a085;
         }
+        .no-listings {
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -87,23 +103,72 @@
 
 <div class="container">
     <h2>Available Listings</h2>
-    <div id="book-listings"></div>
+    <div class="filter-container">
+        <label for="filter-subject">Filter by Subject:</label>
+        <select id="filter-subject">
+            <option value="">All Subjects</option>
+            <option value="English">English</option>
+            <option value="History">History</option>
+            <option value="Math">Math</option>
+            <option value="Science">Science</option>
+        </select>
+    </div>
+    
+    <div id="book-listings" class="book-listings"></div>
 </div>
 
 <script>
     // Get stored listings from localStorage
     var listings = JSON.parse(localStorage.getItem('listings')) || [];
 
-    // Display the listings on the page
-    var listingsContainer = document.getElementById('book-listings');
-    
-    if (listings.length === 0) {
-        listingsContainer.innerHTML = "<p>No books available yet. Add a book to the listings!</p>";
+    // Get filter value
+    var filterSubject = document.getElementById('filter-subject');
+
+    // Function to update listings based on filter
+    function updateListings() {
+        var filteredListings = listings.filter(function (listing) {
+            if (filterSubject.value === "") return true; // Show all subjects
+            return listing.subject === filterSubject.value;
+        });
+
+        var listingsContainer = document.getElementById('book-listings');
+        listingsContainer.innerHTML = ''; // Clear current listings
+
+        if (filteredListings.length === 0) {
+            listingsContainer.innerHTML = "<p class='no-listings'>No books available for this subject. Try another filter or add your own book!</p>";
+        }
+
+        filteredListings.forEach(function (listing) {
+            var listingElement = document.createElement('div');
+            listingElement.classList.add('book-listing');
+            listingElement.innerHTML = `
+                <h3>${listing.title}</h3>
+                <p><strong>Author:</strong> ${listing.author}</p>
+                <p><strong>Price:</strong> $${listing.price}</p>
+                <p><strong>Condition:</strong> ${listing.condition}</p>
+                <p><strong>Subject:</strong> ${listing.subject}</p>
+                <p>${listing.description}</p>
+                <button onclick="addToCart('${listing.title}')">Add to Cart</button>
+            `;
+            listingsContainer.appendChild(listingElement);
+        });
     }
 
-    listings.forEach(function (listing) {
-        listingsContainer.innerHTML += listing;
-    });
+    // Filter change event listener
+    filterSubject.addEventListener('change', updateListings);
+
+    // Function to add book to cart
+    function addToCart(title) {
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        var selectedBook = listings.find(function (listing) {
+            return listing.title === title;
+        });
+        cart.push(selectedBook);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Initial listings update
+    updateListings();
 </script>
 
 </body>
