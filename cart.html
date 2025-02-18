@@ -124,7 +124,7 @@
             const cartItem = document.createElement("div");
             cartItem.classList.add("cart-item");
             cartItem.innerHTML = `
-                <img src="https://via.placeholder.com/80x100" alt="Book">
+                <img src="${item.image || 'https://via.placeholder.com/80x100'}" alt="Book">
                 <div class="cart-info">
                     <h3>${item.title}</h3>
                     <p>Author: ${item.author}</p>
@@ -154,4 +154,3 @@
 
 </body>
 </html>
-
