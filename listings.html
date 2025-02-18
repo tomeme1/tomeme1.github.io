@@ -104,6 +104,23 @@
     var cart = JSON.parse(localStorage.getItem('cart')) || [];
     var listingsContainer = document.getElementById('book-listings');
     
+    // Define the subjects for filtering
+    var englishSubjects = [
+        "English 9", "English 10", "Literature of Pandemics", "Writing Seminar: Rhetoric and Grammar", 
+        "Contemporary Culture", "Literature of Black Joy", "War in Literature", "Big Books: Studies in the Novel", 
+        "Creative Writing: Story Mechanics", "Literature of Comedy and Satire", "Literature of Resistance", 
+        "Transnational Literature", "Creative Writing: Creative Nonfiction", "Literature of Pandemics", 
+        "Shakespeare and the Modern World", "War in Literature", "Writing Sem: Contemporary Culture"
+    ];
+    
+    var historySubjects = [
+        "World History 1", "World History 2", "US History", "Adv Historical Research: Directed", 
+        "Adv US History Seminar", "Government and Citizenship", "History of Race", "History of Refugee Communities", 
+        "History of Thought", "Native American Studies", "Adv Historical Research: Applied", "Gender in the Americas", 
+        "History of Law", "History of Medicine", "Israel and Palestine", "South Asian American Studies", "World Religions"
+    ];
+    
+    // Display all listings or filtered listings
     function displayListings(filtered = listings) {
         listingsContainer.innerHTML = "";
         if (filtered.length === 0) {
@@ -126,16 +143,23 @@
         });
     }
     
+    // Filter listings based on selected subject
     function filterListings() {
         var selectedSubject = document.getElementById('subjectFilter').value;
+        var filteredListings = [];
+
         if (selectedSubject === "all") {
-            displayListings(listings);
-        } else {
-            var filteredListings = listings.filter(listing => listing.subject.includes(selectedSubject));
-            displayListings(filteredListings);
+            filteredListings = listings;
+        } else if (selectedSubject === "English") {
+            filteredListings = listings.filter(listing => englishSubjects.includes(listing.subject));
+        } else if (selectedSubject === "History") {
+            filteredListings = listings.filter(listing => historySubjects.includes(listing.subject));
         }
+
+        displayListings(filteredListings);
     }
     
+    // Add book to cart and update localStorage
     function addToCart(index) {
         var selectedBook = listings.splice(index, 1)[0];
         cart.push(selectedBook);
