@@ -16,12 +16,10 @@
             background-color: #2c3e50;
             color: white;
             padding: 20px;
-            text-align: center;
         }
         nav {
             background-color: #34495e;
             padding: 1em 0;
-            text-align: center;
         }
         nav a {
             color: white;
@@ -69,6 +67,11 @@
         .book-listing button:hover {
             background-color: #16a085;
         }
+        select {
+            padding: 8px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -87,21 +90,27 @@
 
 <div class="container">
     <h2>Available Listings</h2>
+    <label for="subjectFilter">Filter by Subject:</label>
+    <select id="subjectFilter" onchange="filterListings()">
+        <option value="all">All Subjects</option>
+        <option value="English">English</option>
+        <option value="History">History</option>
+    </select>
     <div id="book-listings"></div>
 </div>
 
 <script>
-    // Get stored listings and cart from localStorage
     var listings = JSON.parse(localStorage.getItem('listings')) || [];
     var cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Display listings
     var listingsContainer = document.getElementById('book-listings');
-
-    if (listings.length === 0) {
-        listingsContainer.innerHTML = '<p>No listings available.</p>';
-    } else {
-        listings.forEach((listing, index) => {
+    
+    function displayListings(filtered = listings) {
+        listingsContainer.innerHTML = "";
+        if (filtered.length === 0) {
+            listingsContainer.innerHTML = '<p>No listings available.</p>';
+            return;
+        }
+        filtered.forEach((listing, index) => {
             var listingDiv = document.createElement('div');
             listingDiv.classList.add('book-listing');
             listingDiv.innerHTML = `
@@ -116,19 +125,26 @@
             listingsContainer.appendChild(listingDiv);
         });
     }
-
-    // Add listing to cart and remove from listings
+    
+    function filterListings() {
+        var selectedSubject = document.getElementById('subjectFilter').value;
+        if (selectedSubject === "all") {
+            displayListings(listings);
+        } else {
+            var filteredListings = listings.filter(listing => listing.subject.includes(selectedSubject));
+            displayListings(filteredListings);
+        }
+    }
+    
     function addToCart(index) {
-        var selectedBook = listings.splice(index, 1)[0]; // Remove book from listings
-        cart.push(selectedBook); // Add it to the cart
-
-        // Update localStorage
+        var selectedBook = listings.splice(index, 1)[0];
+        cart.push(selectedBook);
         localStorage.setItem('listings', JSON.stringify(listings));
         localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Refresh the listings page
         window.location.reload();
     }
+    
+    displayListings();
 </script>
 
 </body>
