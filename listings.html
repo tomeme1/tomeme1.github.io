@@ -20,13 +20,14 @@
             background-color: #2c3e50;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 20px 0;
         }
         header h1 {
             font-size: 3rem;
         }
         header p {
             font-size: 1.2rem;
+            margin-top: 10px;
         }
         nav {
             background-color: #34495e;
@@ -45,10 +46,35 @@
             border-radius: 5px;
         }
 
+        /* Filter Styles */
+        .filter-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .filter-container select {
+            font-size: 1.1rem;
+            padding: 10px;
+            margin-right: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .filter-container button {
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filter-container button:hover {
+            background-color: #16a085;
+        }
+
         /* Book Listing Styles */
         .book-listing {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr); /* 3 listings per row */
             gap: 20px;
             padding: 20px;
             max-width: 1200px;
@@ -101,6 +127,9 @@
             nav a {
                 font-size: 1rem;
             }
+            .book-listing {
+                grid-template-columns: 1fr 1fr; /* 2 listings per row on mobile */
+            }
         }
     </style>
 </head>
@@ -117,39 +146,100 @@
     <a href="#">Contact</a>
 </nav>
 
-<section class="book-listing">
-    <div class="book-card">
+<div class="filter-container">
+    <select id="topicFilter">
+        <option value="all">All Topics</option>
+        <option value="english">English 9, 10, 11th Grade Elective, 12th Grade Elective</option>
+        <option value="history">World History 1, 2, United States History, 12th Grade Elective</option>
+    </select>
+    <button onclick="filterBooks()">Filter</button>
+</div>
+
+<section class="book-listing" id="book-listing">
+
+    <!-- Example Book Card 1 -->
+    <div class="book-card" data-topic="english">
         <img src="https://via.placeholder.com/250x300" alt="Book Cover">
         <div class="book-info">
-            <h3>Book Title 1</h3>
-            <p>Author: Author Name</p>
+            <h3>English 9 - The Great Gatsby</h3>
+            <p>Author: F. Scott Fitzgerald</p>
             <p>Condition: Used - Good</p>
             <div class="price">$10</div>
         </div>
     </div>
-    
-    <div class="book-card">
+
+    <!-- Example Book Card 2 -->
+    <div class="book-card" data-topic="history">
         <img src="https://via.placeholder.com/250x300" alt="Book Cover">
         <div class="book-info">
-            <h3>Book Title 2</h3>
-            <p>Author: Author Name</p>
+            <h3>World History 1 - Ancient Civilizations</h3>
+            <p>Author: Various</p>
             <p>Condition: Used - Like New</p>
             <div class="price">$12</div>
         </div>
     </div>
-    
-    <div class="book-card">
+
+    <!-- Example Book Card 3 -->
+    <div class="book-card" data-topic="english">
         <img src="https://via.placeholder.com/250x300" alt="Book Cover">
         <div class="book-info">
-            <h3>Book Title 3</h3>
-            <p>Author: Author Name</p>
+            <h3>English 10 - To Kill a Mockingbird</h3>
+            <p>Author: Harper Lee</p>
             <p>Condition: Used - Acceptable</p>
             <div class="price">$8</div>
         </div>
     </div>
-    
+
+    <!-- Example Book Card 4 -->
+    <div class="book-card" data-topic="history">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>United States History - Civil War</h3>
+            <p>Author: Various</p>
+            <p>Condition: Used - Good</p>
+            <div class="price">$15</div>
+        </div>
+    </div>
+
+    <!-- Example Book Card 5 -->
+    <div class="book-card" data-topic="english">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>English 11 - 1984</h3>
+            <p>Author: George Orwell</p>
+            <p>Condition: Used - Like New</p>
+            <div class="price">$11</div>
+        </div>
+    </div>
+
+    <!-- Example Book Card 6 -->
+    <div class="book-card" data-topic="history">
+        <img src="https://via.placeholder.com/250x300" alt="Book Cover">
+        <div class="book-info">
+            <h3>History Elective - The Cold War</h3>
+            <p>Author: Various</p>
+            <p>Condition: Used - Good</p>
+            <div class="price">$9</div>
+        </div>
+    </div>
+
     <!-- Add more books here -->
 </section>
+
+<script>
+    function filterBooks() {
+        const topic = document.getElementById('topicFilter').value;
+        const books = document.querySelectorAll('.book-card');
+
+        books.forEach(book => {
+            if (topic === 'all' || book.dataset.topic === topic) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
