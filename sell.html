@@ -41,6 +41,17 @@
             background: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            text-align: left;
+        }
+        label, select, input, textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        select, input, textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
         .btn-sell {
             background-color: #1abc9c;
@@ -50,6 +61,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
         }
         .btn-sell:hover {
             background-color: #16a085;
@@ -74,46 +86,57 @@
     <h2>Sell Your Book</h2>
     <p>Fill out the form below to list your book for sale.</p>
     <form id="sell-form">
-        <div>
-            <label for="book-title">Book Title:</label>
-            <input type="text" id="book-title" required>
-        </div>
-        <div>
-            <label for="book-author">Author:</label>
-            <input type="text" id="book-author" required>
-        </div>
-        <div>
-            <label for="book-price">Price:</label>
-            <input type="text" id="book-price" required>
-        </div>
-        <div>
-            <label for="book-condition">Condition:</label>
-            <select id="book-condition" required>
-                <option value="New">New</option>
-                <option value="Like New">Like New</option>
-                <option value="Good">Good</option>
-                <option value="Acceptable">Acceptable</option>
-                <option value="Poor">Poor</option>
-            </select>
-        </div>
-        <div>
-            <label for="book-subject">Subject:</label>
-            <select id="book-subject" required>
+        <label for="book-title">Book Title:</label>
+        <input type="text" id="book-title" required>
+
+        <label for="book-author">Author:</label>
+        <input type="text" id="book-author" required>
+
+        <label for="book-price">Price:</label>
+        <input type="text" id="book-price" required>
+
+        <label for="book-condition">Condition:</label>
+        <select id="book-condition" required>
+            <option value="New">New</option>
+            <option value="Like New">Like New</option>
+            <option value="Good">Good</option>
+            <option value="Acceptable">Acceptable</option>
+            <option value="Poor">Poor</option>
+        </select>
+
+        <label for="book-subject">Subject:</label>
+        <select id="book-subject" required>
+            <optgroup label="English">
                 <option value="English 9">English 9</option>
                 <option value="English 10">English 10</option>
-                <option value="English 11">English 11</option>
-                <option value="English 12">English 12</option>
+                <option value="Literature of Pandemics">Literature of Pandemics</option>
+                <option value="Writing Seminar: Rhetoric and Grammar">Writing Seminar: Rhetoric and Grammar</option>
+                <option value="Contemporary Culture">Contemporary Culture</option>
+                <option value="Literature of Black Joy">Literature of Black Joy</option>
+                <option value="War in Literature">War in Literature</option>
+                <option value="Big Books: Studies in the Novel">Big Books: Studies in the Novel</option>
+                <option value="Creative Writing: Story Mechanics">Creative Writing: Story Mechanics</option>
+                <option value="Literature of Comedy and Satire">Literature of Comedy and Satire</option>
+                <option value="Shakespeare and the Modern World">Shakespeare and the Modern World</option>
+            </optgroup>
+            <optgroup label="History">
                 <option value="World History 1">World History 1</option>
                 <option value="World History 2">World History 2</option>
-                <option value="U.S. History">U.S. History</option>
-                <option value="U.S. History 2">U.S. History 2</option>
-                <option value="History Elective">History Elective</option>
-            </select>
-        </div>
-        <div>
-            <label for="book-description">Description:</label>
-            <textarea id="book-description" required></textarea>
-        </div>
+                <option value="US History">US History</option>
+                <option value="Adv US History Seminar">Adv US History Seminar</option>
+                <option value="Government and Citizenship">Government and Citizenship</option>
+                <option value="History of Race">History of Race</option>
+                <option value="History of Refugee Communities">History of Refugee Communities</option>
+                <option value="History of Thought">History of Thought</option>
+                <option value="Native American Studies">Native American Studies</option>
+                <option value="History of Medicine">History of Medicine</option>
+                <option value="Israel and Palestine">Israel and Palestine</option>
+            </optgroup>
+        </select>
+
+        <label for="book-description">Description:</label>
+        <textarea id="book-description" required></textarea>
+
         <button class="btn-sell" type="submit">Sell Book</button>
     </form>
 </div>
@@ -121,31 +144,17 @@
 <script>
     document.getElementById('sell-form').addEventListener('submit', function (event) {
         event.preventDefault();
-
-        // Collect form data
-        var title = document.getElementById('book-title').value;
-        var author = document.getElementById('book-author').value;
-        var price = document.getElementById('book-price').value;
-        var condition = document.getElementById('book-condition').value;
-        var subject = document.getElementById('book-subject').value;
-        var description = document.getElementById('book-description').value;
-
-        // Construct the new book listing object
         var book = {
-            title: title,
-            author: author,
-            price: price,
-            condition: condition,
-            subject: subject,
-            description: description
+            title: document.getElementById('book-title').value,
+            author: document.getElementById('book-author').value,
+            price: document.getElementById('book-price').value,
+            condition: document.getElementById('book-condition').value,
+            subject: document.getElementById('book-subject').value,
+            description: document.getElementById('book-description').value
         };
-
-        // Store the new listing in local storage
         var listings = JSON.parse(localStorage.getItem('listings')) || [];
         listings.push(book);
         localStorage.setItem('listings', JSON.stringify(listings));
-
-        // Redirect to the listings page
         window.location.href = "listings.html";
     });
 </script>
